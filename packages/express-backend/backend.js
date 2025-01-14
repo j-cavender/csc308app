@@ -39,6 +39,11 @@ const findUserByName = (name) => {
 	);
 };
 
+const addUser = (user) => {
+	users["users_list"].push(user);
+	return user;
+};
+
 const findUserById = (id) =>
 	users["users_list"].find((user) => user["id"] === id);
 
@@ -57,6 +62,12 @@ app.get("/users", (req, res) => {
 	} else {
 		res.send(users);
 	}
+});
+
+app.post("/users", (req, res) => {
+	const userToAdd = req.body;
+	addUser(userToAdd);
+	res.send();
 });
 
 app.get ("/users/:id", (req, res) => {
