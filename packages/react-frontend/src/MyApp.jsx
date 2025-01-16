@@ -15,7 +15,12 @@ function MyApp() {
 
     function updateList(person) {
         postUser(person)
-            .then(() => setCharacters([...characters, person]))
+            .then((res) => {
+                if (res.status != 201)
+                    throw new Error("Cant update");
+                setCharacters([...characters, person]);
+            })
+            
             .catch((error) => {
                 console.log(error);
             })
