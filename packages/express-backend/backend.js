@@ -47,6 +47,15 @@ const addUser = (user) => {
 const findUserById = (id) =>
 	users["users_list"].find((user) => user["id"] === id);
 
+const deleteUserById = (id) => {
+	let index = users["users_list"].findIndex((user) => user["id"] === id);
+	if (index !== -1) {
+		return users["users_list"].splice(index,1)[0];
+	} else {
+		return null;
+	}
+};
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -70,9 +79,19 @@ app.post("/users", (req, res) => {
 	res.send();
 });
 
-app.get ("/users/:id", (req, res) => {
+app.get("/users/:id", (req, res) => {
 	const id = req.params["id"];
 	let result = findUserById(id);
+	if (result === undefined) {
+		res.status(404).send("Resource not found.");
+	} else {
+		res.send(result);
+	}
+});
+
+app.delete("/users/:id", (req, res) => {
+	const id = req.params["id"];
+	let result = deleteUserById(id);
 	if (result === undefined) {
 		res.status(404).send("Resource not found.");
 	} else {
