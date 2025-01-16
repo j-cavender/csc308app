@@ -47,6 +47,7 @@ const findUserByJob = (job) => {
 };
 
 const addUser = (user) => {
+	user["id"] = Math.random();
 	users["users_list"].push(user);
 	return user;
 };
