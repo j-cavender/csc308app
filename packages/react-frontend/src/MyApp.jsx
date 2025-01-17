@@ -9,7 +9,7 @@ function MyApp() {
     function removeOneCharacter(index) {
         deleteUser(characters[index]["id"])
             .then((res) => {
-                if (res.status !== 200)
+                if (res.status !== 204)
                     throw new Error("Could not remove character")
             })
             .then(() => {
