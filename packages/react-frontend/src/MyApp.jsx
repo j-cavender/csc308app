@@ -1,5 +1,5 @@
 // src/MyApp.jsx
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import Table from "./Table";
 import Form from "./Form";
 
@@ -7,18 +7,31 @@ function MyApp() {
     const [characters, setCharacters] = useState([]);
 
     function removeOneCharacter(index) {
-        const updated = characters.filter((character, i) => {
-            return i !== index;
-        });
-        setCharacters(updated);
+        deleteUser(characters[index]["id"])
+            .then((res) => {
+                if (res.status !== 200)
+                    throw new Error("Could not remove character")
+            })
+            .then(() => {
+                const updated = characters.filter((character, i) => {
+                    return i !== index;
+                });
+                setCharacters(updated);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+
     }
 
     function updateList(person) {
         postUser(person)
             .then((res) => {
-                if (res.status != 201)
+                if (res.status !== 201)
                     throw new Error("Cant update");
-                return res.json()})
+                return res.json()
+            })
             .then((newUser) => setCharacters([...characters, newUser]))
             .catch((error) => {
                 console.log(error);
@@ -41,20 +54,29 @@ function MyApp() {
         return promise;
     }
 
+    function deleteUser(id) {
+        const promise = fetch(`http://localhost:8000/users/${id}`, {
+            method: "DELETE"
+        });
+        return promise;
+    }
+
     useEffect(() => {
         fetchUsers()
             .then((res) => res.json())
             .then((json) => setCharacters(json["users_list"]))
-            .catch((error) => { console.log(error); });
-    }, [] );
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
 
     return (
         <div className="container">
-            <Table 
-            characterData={characters}
-            removeCharacter={removeOneCharacter}
+            <Table
+                characterData={characters}
+                removeCharacter={removeOneCharacter}
             />
-            <Form handleSubmit={updateList} />
+            <Form handleSubmit={updateList}/>
         </div>
     );
 }
