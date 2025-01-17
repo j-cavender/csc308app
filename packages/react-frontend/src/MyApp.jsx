@@ -18,9 +18,8 @@ function MyApp() {
             .then((res) => {
                 if (res.status != 201)
                     throw new Error("Cant update");
-                setCharacters([...characters, person]);
-            })
-            
+                return res.json()})
+            .then((newUser) => setCharacters([...characters, newUser]))
             .catch((error) => {
                 console.log(error);
             })

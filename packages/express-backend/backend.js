@@ -95,8 +95,8 @@ app.get("/users", (req, res) => {
 
 app.post("/users", (req, res) => {
 	const userToAdd = req.body;
-	addUser(userToAdd);
-	res.status(201).send();
+	const newUser = addUser(userToAdd);
+	res.status(201).send(newUser);
 });
 
 app.get("/users/:id", (req, res) => {
