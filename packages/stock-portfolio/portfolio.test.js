@@ -8,7 +8,7 @@ be done in the long term scale of things as more testing and building is added a
 current form.
 
 All in all I feel that the focus of the exercise was to showcase how breaking a project down into a
-simple step-by-step process in order to keep your thoughts and code within a narrow focus feels like an
+simple step-by-step process in order to keep your thoughts and code within a narrow focus. It feels like an
 extremely powerful approach that I will hopefully be able to hone a bit more through practice.
  */
 
