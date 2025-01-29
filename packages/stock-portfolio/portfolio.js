@@ -17,8 +17,8 @@ const countStock = (portfolio) => {
 
 const createPortfolio = () => ([]);
 
-const shareStatus = (data) => {
-    if (!data.length) {
+const shareStatus = (portfolio) => {
+    if (!portfolio.length) {
         return 'No shares owned'
     } else {
         return 'We have shares'
