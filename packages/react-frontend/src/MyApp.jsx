@@ -41,7 +41,8 @@ function MyApp() {
     }
 
     function fetchUsers() {
-        const promise = fetch("http://localhost:8000/users");
+        const searchParams = window.location.search;
+        const promise = fetch(`http://localhost:8000/users${searchParams}`);
         return promise;
     }
 
