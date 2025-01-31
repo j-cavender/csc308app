@@ -9,6 +9,8 @@ function MyApp() {
     function removeOneCharacter(index) {
         deleteUser(characters[index]["_id"])
             .then((res) => {
+                if (res.status === 404)
+                    throw new Error("Could not find character")
                 if (res.status !== 204)
                     throw new Error("Could not remove character")
             })
